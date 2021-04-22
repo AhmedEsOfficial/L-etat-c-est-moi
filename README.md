@@ -1,5 +1,6 @@
 # L-etat-c-est-moi
 
+I'm putting an emphasis on making the project scalable as much as possible. I'm doing this through decoupling the code and using OOP.
 
 # Currently included:
 
