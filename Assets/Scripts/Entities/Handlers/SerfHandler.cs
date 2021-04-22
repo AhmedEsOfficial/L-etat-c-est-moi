@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PeasantHandler : MonoBehaviour
+public class SerfHandler : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public int peasants;
+    public int Serfs;
     public int rows;
     public int refreshRate;
     public int movementSpeed;
     PeasantManager manager;
     void Start()
     {
-        manager = new PeasantManager(peasants, rows, refreshRate, movementSpeed);
-        InvokeRepeating("tellPeasant", 2.0f, 1f);
+        manager = new PeasantManager(Serfs, rows, refreshRate, movementSpeed);
+        InvokeRepeating("tellPeasant", 2.0f, 5f);
 
     }
 
@@ -26,6 +26,6 @@ public class PeasantHandler : MonoBehaviour
 
     void tellPeasant()
     {
-        manager.UpdateWholePeasant();
+        manager.UpdateWholeSerf();
     }
 }

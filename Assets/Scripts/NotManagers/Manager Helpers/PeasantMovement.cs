@@ -5,14 +5,14 @@ using UnityEngine;
 
 
 
-public class PeasantMovement: MonoBehaviour
+public class EntityMovement: MonoBehaviour
 
 
 {
     GameObject  movePoint ;
     private float moveSpeed = 2f;
     private float gridMove = 1f;
-    private PeasantLink Link;
+    private EntityLink Link;
     float targetDirectionX, targetDirectionZ ;
     bool alternateDirection;
     bool update = true;
@@ -52,7 +52,7 @@ public class PeasantMovement: MonoBehaviour
 
    
 
-    public void LinkToData(PeasantLink link)
+    public void LinkToData(EntityLink link)
     {
         Link = link;
     }
@@ -103,5 +103,10 @@ public class PeasantMovement: MonoBehaviour
     {
         
         
+    }
+    public void DestroyEntityGO()
+    {
+        Destroy(Link.peasant);
+        Destroy(movePoint);
     }
 }

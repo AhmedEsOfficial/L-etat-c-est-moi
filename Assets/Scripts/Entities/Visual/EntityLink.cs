@@ -14,42 +14,47 @@ public enum MovingState
 {
     Stationary = 0, Moving = 1
 }
-
-
 public enum CompassDirection // Going ClockWise
 {
     North = 0, NorthEast = 1, East = 2, SouthEast = 3, South = 4, SouthWest = 5, West = 6, NorthWest = 7, Halt = 8
 }
-public class PeasantLink
+public class EntityLink
 {
 
-    Peasant myPeasant;
     public GameObject peasant;
+
+    private GridTile CurrentTile;
+    private GridTile NextTile;
 
     DirectionX ActiveDirectionX = DirectionX.Right;
     DirectionZ ActiveDirectionZ = DirectionZ.Up;
     MovingState ActiveMovingStateX = MovingState.Stationary;
     MovingState ActiveMovingStateZ = MovingState.Stationary;
     CompassDirection ActiveCompassDirection;
+
+
     public bool ChangedTiles = true;
     //System to figure out if grid tile changed
     int trackX, trackZ, trackX1, trackZ1;
     bool turn = true;
 
-    public void PeasantSpawn(Peasant bob, float movementSpeed)
+    public void CreateGameObjectForEntity(float initialMovementSpeed, GridTile startingTile)
     {
         peasant = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-        peasant.transform.position = bob.GetCurrentTile().GetWorldCords();
-        peasant.AddComponent<PeasantMovement>();
-        peasant.GetComponent<PeasantMovement>().LinkToData(this);
-        peasant.GetComponent<PeasantMovement>().SetMovementSpeed(movementSpeed);
-        myPeasant = bob;
+        SetCurrentTile(startingTile);
+        GetCurrentTile().SetHasEntity(true);
+
+        peasant.transform.position = GetCurrentTile().GetWorldCords();
+        peasant.AddComponent<EntityMovement>();
+        peasant.GetComponent<EntityMovement>().LinkToData(this);
+        peasant.GetComponent<EntityMovement>().SetMovementSpeed(initialMovementSpeed);
+
         //CompassDirection d = (CompassDirection)Random.Range(0, 9) ;
         //CompassDirection d = CompassDirection.North;
         HeadInCompassDirection(ActiveCompassDirection);
         
-        trackX1 = myPeasant.GetCurrentTile().GetTileGridX();
-        trackZ1 = myPeasant.GetCurrentTile().GetTileGridX();
+        trackX1 = GetCurrentTile().GetTileGridX();
+        trackZ1 = GetCurrentTile().GetTileGridX();
 
 
     }
@@ -60,7 +65,7 @@ public class PeasantLink
         int z = GridManager.ConvertWorldToTileGridZ(peasant.transform.position.z);
         if (x >= 0 && x < GridManager.Width && z >= 0 && z < GridManager.Height)
         {
-            myPeasant.SetCurrentTile(GridManager.tiles[x, z]);
+            SetCurrentTile(GridManager.tiles[x, z]);
 
         }
 
@@ -68,15 +73,15 @@ public class PeasantLink
 
         if (turn)
         {
-            trackX = myPeasant.GetCurrentTile().GetTileGridX();
-            trackZ = myPeasant.GetCurrentTile().GetTileGridZ();
+            trackX = GetCurrentTile().GetTileGridX();
+            trackZ = GetCurrentTile().GetTileGridZ();
             turn = false;
 
         }
         else
         {
-            trackX1 = myPeasant.GetCurrentTile().GetTileGridX();
-            trackZ1 = myPeasant.GetCurrentTile().GetTileGridZ();
+            trackX1 = GetCurrentTile().GetTileGridX();
+            trackZ1 = GetCurrentTile().GetTileGridZ();
             turn = true;
         }
 
@@ -85,7 +90,7 @@ public class PeasantLink
             GridManager.tiles[trackX, trackZ].SetHasEntity(false);
             ChangedTiles = true;
             SetNextTile(futurePos);
-            myPeasant.GetCurrentTile().SetHasEntity(true);
+            GetCurrentTile().SetHasEntity(true);
         }
         else
         {
@@ -115,10 +120,10 @@ public class PeasantLink
     {
         
         bool willCollide = false;
-        if(myPeasant.GetCurrentTile() != myPeasant.GetNextTile())
+        if(GetCurrentTile() != GetNextTile())
         {
             
-            if (myPeasant.GetNextTile().HasEntity())
+            if (GetNextTile().HasEntity())
             {
                 willCollide = true;
             }
@@ -138,7 +143,7 @@ public class PeasantLink
 
         if (x >= 0 && x < GridManager.Width && z >= 0 && z < GridManager.Height)
         {
-            myPeasant.SetNextTile(GridManager.tiles[x, z]);
+            SetNextTile(GridManager.tiles[x, z]);
 
         }
         else
@@ -146,11 +151,27 @@ public class PeasantLink
             ActiveCompassDirection = CompassDirection.Halt;
         }
 
+    }
 
-
-
-
-
+    public void DestroyEntity()
+    {
+        peasant.GetComponent<EntityMovement>().DestroyEntityGO();
+    }
+    public GridTile GetCurrentTile()
+    {
+        return CurrentTile;
+    }
+    public void SetCurrentTile(GridTile tile)
+    {
+        CurrentTile = tile;
+    }
+    public GridTile GetNextTile()
+    {
+        return NextTile;
+    }
+    public void SetNextTile(GridTile tile)
+    {
+        NextTile = tile;
     }
 
     public void HeadInCompassDirection(CompassDirection thatWay)

@@ -53,13 +53,15 @@ public class GridManager
 
 
         //Assign Visuals
-        GameObject tile = new GameObject("tile");
+        GameObject tile = new GameObject("tile " + x + " , " + z);
+        tile.layer = 13; 
         tile.transform.SetParent(Grid.transform);
         tile.transform.SetPositionAndRotation(worldCord, Quaternion.identity);
         tile.AddComponent<MeshFilter>();
         tile.AddComponent<MeshRenderer>();
         tile.AddComponent<GridTileMesh>();
         tile.GetComponent<GridTileMesh>().Initiate(CellSize, Mat);
+        tile.AddComponent<MeshCollider>();
 
 
 
@@ -89,11 +91,8 @@ public class GridManager
     }
 
 
-    private void GenerateGameObject(Vector3 position, PrimitiveType type)
+    private void UpdateTileHolding(int x, int y, Holding h)
     {
-        GameObject thing = GameObject.CreatePrimitive(type);
-        Transform transform = thing.transform;
-        transform.localPosition = position;
-       
+        tiles[x, y].holding = h;
     }
 }

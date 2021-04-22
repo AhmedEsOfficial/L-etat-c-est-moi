@@ -8,7 +8,7 @@ public class GridTile
     private int GridZ;
     float WorldX, WorldZ;
     private bool hasEntity;
-    
+    public Holding holding;
 
     public GridTile(int gridX, int gridZ, float worldX, float worldZ)
     {

@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Entities.Behaviour
+public class EntityBrain 
 {
-    public class PeasantBrain 
-    {
-        PeasantLink link;
 
-        public PeasantBrain(PeasantLink l)
+    EntityLink link;
+    Entity myEntity;
+
+
+        public EntityBrain(EntityLink l, Entity e)
         {
             link = l;
+        myEntity = e;
         }
 
         public void sense()
@@ -22,8 +24,13 @@ namespace Assets.Scripts.Entities.Behaviour
 
         public void GoToTile(int x, int y)
         {
-
+            if(link.GetCurrentTile() == GridManager.tiles[x,y])
+            {
+            
+                Debug.Log("We Are Here");
+            }
         }
+        
 
-    }
+
 }
