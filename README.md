@@ -4,6 +4,15 @@ I'm putting an emphasis on making the project scalable as much as possible. I'm 
 
 # Currently included:
 
+In Overworld map generation:
+ 
+ A terrain generation system that uses simplex noise but is easily expandable by applying more algorithms
+
+ A visual representation using unity tile maps (might need to assign the tiles in editor)
+
+
+In Humanoids scene:
+
  An expandable grid system,
  
  An expandable Entity system,
@@ -25,6 +34,7 @@ I'm putting an emphasis on making the project scalable as much as possible. I'm 
  Handlers: The monobehavior scripts attached to the game objects and initiliazes variables useful for debugging.
 
 # Near future To-Do:
+
  An expandable behavior framework for the brain built on scriptable objects,
  
  Pathfinding
