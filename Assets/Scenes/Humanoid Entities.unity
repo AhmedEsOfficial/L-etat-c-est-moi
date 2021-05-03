@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63e3bd5ae28b5f2429cdd4e928332a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Serfs: 50
+  Serfs: 1
   rows: 1
   refreshRate: 2
   movementSpeed: 4
@@ -614,7 +614,8 @@ MonoBehaviour:
   height: 128
   cellSize: 5
   plotLength: 16
-  material: {fileID: 2100000, guid: c7ff5dcd0fa0da7499fdffed6dd6ecb0, type: 2}
+  material: {fileID: -9117483709511198939, guid: fff6edbee495c4b4fb0f6db80beb3608,
+    type: 3}
 --- !u!4 &1348996141
 Transform:
   m_ObjectHideFlags: 0

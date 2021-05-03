@@ -50,7 +50,7 @@ public class PeasantManager
 
     }
 
-    public void UpdateWholeSerf()
+    public void UpdateSerfs()
     {
         
         foreach(Entity p in peasants)
@@ -58,13 +58,12 @@ public class PeasantManager
             p.myBrain.sense();
             if (p.myLink.GetCurrentTile().holding != null)
             {
-                p.myLink.DestroyEntity();
+                //p.myLink.DestroyEntity();
                 
-                peasants.Remove(p);
-                Debug.Log("Dead!");
+                //peasants.Remove(p);
+                //Debug.Log("Dead!");
             }
-            //p.myBrain.GoToTile(0, 0);
-            
+            //p.myBrain.GoToTile(0, 0);       
         }
 
         

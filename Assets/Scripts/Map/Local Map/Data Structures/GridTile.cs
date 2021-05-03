@@ -9,6 +9,9 @@ public class GridTile
     float WorldX, WorldZ;
     private bool hasEntity;
     public Holding holding;
+    public Plot myPlot;
+    private bool Active;
+
 
     public GridTile(int gridX, int gridZ, float worldX, float worldZ)
     {
@@ -41,6 +44,11 @@ public class GridTile
     public void SetHasEntity(bool occupied)
     {
         hasEntity = occupied;
+        Active = occupied;
+    }
+    public bool IsActive()
+    {
+        return Active;
     }
     public Vector3 GetWorldCords()
     {

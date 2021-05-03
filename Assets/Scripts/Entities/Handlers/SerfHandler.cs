@@ -26,6 +26,6 @@ public class SerfHandler : MonoBehaviour
 
     void tellPeasant()
     {
-        manager.UpdateWholeSerf();
+        manager.UpdateSerfs();
     }
 }

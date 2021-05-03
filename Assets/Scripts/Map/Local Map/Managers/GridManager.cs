@@ -90,6 +90,10 @@ public class GridManager
         return gridZ;
     }
 
+    public void updateTileMat(Material m)
+    {
+
+    }
 
     private void UpdateTileHolding(int x, int y, Holding h)
     {

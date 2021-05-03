@@ -21,4 +21,6 @@ public class HoldingVisual
         holdingGO.transform.position = new Vector3(x + GridManager.CellSize/ 2, GridManager.CellSize/ 2, y + GridManager.CellSize / 2);
 
     }
+
+
 }

@@ -6,10 +6,10 @@ using UnityEngine;
 public class PlotManager
 {
     int PlotNumX, PlotNumZ;
-    int PlotLength;
+    public static int PlotLength;
     public static float PlotSize;
 
-    public static Plot[,] plots;
+    private static Plot[,] plots;
 
     public PlotManager(int width, int height, int plotLength, float cellSize)
     {
@@ -31,16 +31,24 @@ public class PlotManager
     private void CreatePlotAt(int x, int z)
     {
         plots[x, z] = new Plot(x, z);
-        plots[x, z].plotTiles = new GridTile[PlotLength, PlotLength];
         // assign grid tiles references
         for(int i = x*PlotLength; i < (x*PlotLength) + PlotLength; i++)
         {
             for (int j = z*PlotLength; j < (z * PlotLength) + PlotLength; j++)
             {
-                plots[x, z].plotTiles[i - (x*PlotLength), j - (z * PlotLength)] = GridManager.tiles[i , j];
+                plots[x, z].SetTile(i - (x * PlotLength), j - (z * PlotLength), GridManager.tiles[i, j]);
+                 GridManager.tiles[i , j].myPlot = plots[x, z];
             }
         }
 
+    }
+    public static Plot GetPlotAtWorld(float x, float z)
+    {
+        return plots[ConvertWorldToPlotX(x), ConvertWorldToPlotZ(z)];
+    }
+    public static Plot GetPlotAtIndex(int x, int z)
+    {
+        return plots[x, z];
     }
 
     public static int ConvertWorldToPlotX(float x)
@@ -54,5 +62,12 @@ public class PlotManager
         float loc = z / PlotManager.PlotSize;
         int gridZ = Mathf.FloorToInt(loc);
         return gridZ;
+    }
+
+    public void updatePlot(Plot p)
+    {
+        foreach (GridTile t in p.plotTiles)
+        {
+        }
     }
 }

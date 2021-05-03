@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,9 +19,10 @@ public class GridTileMesh: MonoBehaviour
         Mesh = new Mesh();
         Mat = mat;
         Scale = scale;
-
         BuildMesh();
     }
+
+
     public void BuildMesh()
     {
         Vector3[] vertices = new Vector3[4];
@@ -52,6 +54,8 @@ public class GridTileMesh: MonoBehaviour
         this.GetComponent<MeshFilter>().mesh = Mesh;
         this.GetComponent<MeshRenderer>().material = Mat;
         this.transform.localScale = new Vector3(Scale, 1, Scale);
+
+        
         
 
 
@@ -75,5 +79,10 @@ public class GridTileMesh: MonoBehaviour
         MeshFilter mf = GetComponent<MeshFilter>();
         MeshRenderer mr = GetComponent<MeshRenderer>();
         MeshCollider mc = GetComponent<MeshCollider>();*/
+    }
+    public void updateMat(Material m)
+    {
+        this.GetComponent<MeshRenderer>().material = m;
+
     }
 }

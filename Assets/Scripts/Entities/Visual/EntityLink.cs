@@ -26,6 +26,7 @@ public class EntityLink
     private GridTile CurrentTile;
     private GridTile NextTile;
 
+
     DirectionX ActiveDirectionX = DirectionX.Right;
     DirectionZ ActiveDirectionZ = DirectionZ.Up;
     MovingState ActiveMovingStateX = MovingState.Stationary;
@@ -63,12 +64,13 @@ public class EntityLink
     {
         int x = GridManager.ConvertWorldToTileGridX(peasant.transform.position.x);
         int z = GridManager.ConvertWorldToTileGridZ(peasant.transform.position.z);
+
         if (x >= 0 && x < GridManager.Width && z >= 0 && z < GridManager.Height)
         {
+
             SetCurrentTile(GridManager.tiles[x, z]);
 
         }
-
         HeadInCompassDirection(ActiveCompassDirection);
 
         if (turn)
@@ -87,10 +89,12 @@ public class EntityLink
 
         if (CurrentGridTileChanged())
         {
-            GridManager.tiles[trackX, trackZ].SetHasEntity(false);
+
+            GridManager.tiles[trackX1, trackZ1].SetHasEntity(false);
             ChangedTiles = true;
             SetNextTile(futurePos);
             GetCurrentTile().SetHasEntity(true);
+            //Debug.Log("Tile Change");
         }
         else
         {
@@ -264,4 +268,7 @@ public class EntityLink
     {
         return ActiveCompassDirection;
     }
+
+
+
 }

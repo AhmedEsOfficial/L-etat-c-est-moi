@@ -18,6 +18,8 @@ public class LocalMapHandler : MonoBehaviour
         MyGrid = new GridManager(width, height, cellSize,material);
         PlotSystem = new PlotManager(width, height, plotLength, cellSize);
         holdingManager = new HoldingManager();
+        InvokeRepeating("updateIncome", 5.0f, 3.0f);
+
     }
 
     // Update is called once per frame
@@ -25,15 +27,17 @@ public class LocalMapHandler : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Clicked();
+            Clicked(0);
         }
+
     }
 
-    void Clicked()
+    void Clicked(int type)
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit = new RaycastHit();
+        
 
         if (Physics.Raycast(ray, out hit))
         {
@@ -42,10 +46,16 @@ public class LocalMapHandler : MonoBehaviour
             if (interactTile.layer == 13)
             {
                 holdingManager.buildHoldingAt(interactTile.transform.position.x, interactTile.transform.position.z);
-
+                Debug.Log(PlotManager.GetPlotAtWorld(interactTile.transform.position.x, interactTile.transform.position.z).holdingNum);
             }
 
         }
+    }
+
+    void updateIncome()
+    {
+        holdingManager.updateHoldings();
+        Debug.Log(holdingManager.wheat);
     }
 
 
